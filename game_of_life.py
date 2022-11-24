@@ -1,3 +1,7 @@
+"""
+Main Game Of Life logic
+"""
+
 import random
 from threading import Lock
 
@@ -15,8 +19,6 @@ class SingletonMeta(type):
 
 
 class GameOfLife(metaclass=SingletonMeta):
-    # counter = 0
-
     def __init__(self, width=20, height=20):
         self.__width = width
         self.__height = height
@@ -25,11 +27,14 @@ class GameOfLife(metaclass=SingletonMeta):
         self.counter = 0
 
     def form_new_generation(self):
+        """
+        Generating world for next step.
+        """
         universe = self.world
         new_world = [[0 for _ in range(self.__width)] for _ in range(self.__height)]
 
-        for i in range(len(universe)):
-            for j in range(len(universe[0])):
+        for i, _ in enumerate(universe):
+            for j, _ in enumerate(universe[0]):
                 if universe[i][j]:
                     if self.__get_near(universe, [i, j]) not in (2, 3):
                         new_world[i][j] = 0
@@ -45,6 +50,9 @@ class GameOfLife(metaclass=SingletonMeta):
         self.world = new_world
 
     def generate_universe(self):
+        """
+        Generate first universe.
+        """
         return [[random.randint(0, 1) for _ in range(self.__width)] for _ in range(self.__height)]
 
     @staticmethod

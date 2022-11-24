@@ -1,3 +1,6 @@
+"""
+Access point to the web-app
+"""
 from flask import Flask, render_template
 
 from game_of_life import GameOfLife
@@ -7,6 +10,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """
+    Index page handling.
+    """
     GameOfLife(20, 20)
     GameOfLife.counter = 0
     return render_template('index.html')
@@ -14,6 +20,9 @@ def index():
 
 @app.route('/live')
 def live():
+    """
+    GameOfLife page handling.
+    """
     new_live = GameOfLife()
     if new_live.counter > 0:
         new_live.form_new_generation()
