@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        setInterval(() => window.location.reload(), 1000);
+    </script>
+{% endblock %}
+
+{% block app_content %}
+    <div>
+        <a class="btn btn-warning home" href="{{ url_for('index') }}">Домой</a>
+        <a class="btn btn-info refresh" href="{{ url_for('live') }}">Создать новую жизнь</a>
+
+        <table class="world">
+            {% for i in range(live.world | length) %}
+                <tr>
+                    {% for j in range(live.world[i] | length) %}
+                        {% if live.world[j][i] == 1 %}
+                            <td class="cell living-cell"></td>
+                        {% elif live.old_world[j][i] == 1%}
+                            <td class="cell dead-cell"></td>
+                        {% else %}
+                            <td class="cell"></td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <a class="counter" style="top: 3%; left: 28%">{{ live.counter }}</a>
+    </div>
+
+
+
+{% endblock %}
+
